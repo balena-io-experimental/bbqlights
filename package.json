@@ -1,0 +1,32 @@
+{
+  "name": "bbqlights",
+  "version": "0.0.0",
+  "description": "BBQ & Lights",
+  "license": "Apache-2.0",
+  "author": "Resin.io Ltd (https://resin.io)",
+  "contributors": [
+    "Jonas Hermsmeier <jhermsmeier@gmail.com> (https://jhermsmeier.de)"
+  ],
+  "keywords": [
+    "bbq",
+    "lights"
+  ],
+  "main": "lights.js",
+  "dependencies": {
+    "rpi-ws281x-native": "^0.8.2"
+  },
+  "devDependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "homepage": "https://github.com/jhermsmeier/bbqlights",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jhermsmeier/bbqlights.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jhermsmeier/bbqlights/issues"
+  },
+  "scripts": {
+    "start": "node lights.js"
+  }
+}
