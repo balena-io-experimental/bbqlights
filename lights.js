@@ -6,9 +6,9 @@ var ledFreqHz = process.env.LED_FREQ_HZ ? +process.env.LED_FREQ_HZ : 800000
 var ledInvert = /^true/i.test( process.env.LED_INVERT )
 var ledPin = process.env.LED_PIN ? +process.env.LED_PIN : 18
 var frameRate = process.env.LED_FRAMERATE ? +process.env.LED_FRAMERATE : 30
+var alpha = process.env.BRIGHTNESS ? +process.env.BRIGHTNESS : 128
 
 // Brightness
-var alpha = 128
 var offset = 0
 // Pixel buffer
 var buffer = new Uint32Array( ledCount )
@@ -52,4 +52,5 @@ process.on( 'SIGTERM', shutdown )
 
 ws281x.init( ledCount )
 
+console.log( 'RESIN RAINBOW BBQ' )
 setInterval( frame, 1000 / 30 )
