@@ -1,11 +1,11 @@
 var ws281x = require('rpi-ws281x-native')
 
-var ledCount = process.env.LED_COUNT || 100
-var ledDMA = process.env.LED_DMA || 5
-var ledFreqHz = process.env.LED_FREQ_HZ || 800000
+var ledCount = process.env.LED_COUNT ? +process.env.LED_COUNT : 100
+var ledDMA = process.env.LED_DMA ? +process.env.LED_DMA : 5
+var ledFreqHz = process.env.LED_FREQ_HZ ? +process.env.LED_FREQ_HZ : 800000
 var ledInvert = /^true/i.test( process.env.LED_INVERT )
-var ledPin = process.env.LED_PIN || 18
-var frameRate = process.env.LED_FRAMERATE || 30
+var ledPin = process.env.LED_PIN ? +process.env.LED_PIN : 18
+var frameRate = process.env.LED_FRAMERATE ? +process.env.LED_FRAMERATE : 30
 
 // Brightness
 var alpha = 128
