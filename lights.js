@@ -1,5 +1,7 @@
 var ws281x = require('rpi-ws281x-native')
 
+var mode = process.env.DEMO_MODE ? +process.env.DEMO_MODE : 0
+
 var ledCount = process.env.LED_COUNT ? +process.env.LED_COUNT : 100
 var ledDMA = process.env.LED_DMA ? +process.env.LED_DMA : 5
 var ledFreqHz = process.env.LED_FREQ_HZ ? +process.env.LED_FREQ_HZ : 800000
@@ -12,6 +14,10 @@ var alpha = process.env.BRIGHTNESS ? +process.env.BRIGHTNESS : 128
 var offset = 0
 // Pixel buffer
 var buffer = new Uint32Array( ledCount )
+
+var fps = 30
+var duration = 120 // seconds
+var currentFrame = 0
 
 function color(r, g, b) {
   r = r * alpha / 255;
@@ -28,12 +34,22 @@ function wheel(pos) {
 }
 
 function frame() {
-  for (var i = 0; i < ledCount; i++) {
-    buffer[i] = wheel(((i * 256 / ledCount) + offset) % 256);
+  if (mode === 1) {
+    var c = wheel(((currentFrame * 256 / ledCount) + offset) % 256)
+    for (var i = 0; i < ledCount; i++) {
+      buffer[i] = c;
+    }
+  } else {
+    for (var i = 0; i < ledCount; i++) {
+      buffer[i] = wheel(((i * 256 / ledCount) + offset) % 256);
+    }
   }
 
   offset = (offset + 1) % 256
   ws281x.render( buffer )
+
+  currentFrame++;
+  currentFrame = currentFrame % (fps * duration);
 }
 
 function shutdown() {
@@ -53,4 +69,4 @@ process.on( 'SIGTERM', shutdown )
 ws281x.init( ledCount )
 
 console.log( 'RESIN RAINBOW BBQ' )
-setInterval( frame, 1000 / 30 )
+setInterval( frame, 1000 / fps )
